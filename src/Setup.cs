@@ -10,6 +10,7 @@ namespace AlbedoTeam.Sdk.Documentation
         public static IServiceCollection AddDocumentation(this IServiceCollection services, DocConfig docConfig)
         {
             if (docConfig is null) throw new ArgumentNullException(nameof(docConfig));
+            if (docConfig.DocumentName is null) docConfig.DocumentName = "v1";
             
             services.AddOpenApiDocument(d =>
             {

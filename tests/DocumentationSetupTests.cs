@@ -28,13 +28,28 @@ namespace AlbedoTeam.Sdk.Documentation.Tests
         [Fact]
         public void AddDocumentation_Valid()
         {
-            _services.AddDocumentation(new DocConfig());
+            _services.AddDocumentation(_docCfg);
 
             var bsp = _services.BuildServiceProvider();
             var scope = bsp.CreateScope();
             var registration = scope.ServiceProvider.GetService<OpenApiDocumentRegistration>();
 
             Assert.NotNull(registration);
+        }
+        
+        [Fact]
+        public void AddDocumentation_DocumentName_Null_Valid_Default()
+        {
+            _docCfg.DocumentName = null;
+            _services.AddDocumentation(_docCfg);
+
+            var bsp = _services.BuildServiceProvider();
+            var scope = bsp.CreateScope();
+            var registration = scope.ServiceProvider.GetService<OpenApiDocumentRegistration>();
+
+            Assert.NotNull(registration);
+            Assert.Equal("v1", registration.DocumentName);
+            Assert.Equal("v1", registration.Generator.Settings.DocumentName);
         }
 
         [Fact]

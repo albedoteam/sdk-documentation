@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <AssemblyName>albedoteam-sdk-documentation</AssemblyName>
+        <AssemblyName>AlbedoTeam.Sdk.Documentation</AssemblyName>
         <RootNamespace>AlbedoTeam.Sdk.Documentation</RootNamespace>
     </PropertyGroup>
 

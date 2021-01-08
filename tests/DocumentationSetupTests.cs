@@ -10,25 +10,23 @@ namespace AlbedoTeam.Sdk.Documentation.Tests
     public class DocumentationSetupTests
     {
         private IServiceCollection _services;
-        private DocConfig _docCfg;
 
         public DocumentationSetupTests()
         {
             _services = new ServiceCollection();
-            _docCfg = new DocConfig
-            {
-                DocumentName = "Anything",
-                Description = "Some description",
-                Title = "Whatever",
-                Version = "v123",
-                GroupNames = new[] {"group1", "group2", "group3"}
-            };
         }
 
         [Fact]
         public void AddDocumentation_Valid()
         {
-            _services.AddDocumentation(_docCfg);
+            _services.AddDocumentation(cfg =>
+            {
+                cfg.DocumentName = "Anything";
+                cfg.Description = "Some description";
+                cfg.Title = "Whatever";
+                cfg.Version = "v123";
+                cfg.GroupNames = new[] {"group1", "group2", "group3"};
+            });
 
             var bsp = _services.BuildServiceProvider();
             var scope = bsp.CreateScope();
@@ -40,8 +38,14 @@ namespace AlbedoTeam.Sdk.Documentation.Tests
         [Fact]
         public void AddDocumentation_DocumentName_Null_Valid_Default()
         {
-            _docCfg.DocumentName = null;
-            _services.AddDocumentation(_docCfg);
+            _services.AddDocumentation(cfg =>
+            {
+                cfg.DocumentName = null;
+                cfg.Description = "Some description";
+                cfg.Title = "Whatever";
+                cfg.Version = "v123";
+                cfg.GroupNames = new[] {"group1", "group2", "group3"};
+            });
 
             var bsp = _services.BuildServiceProvider();
             var scope = bsp.CreateScope();
@@ -55,67 +59,102 @@ namespace AlbedoTeam.Sdk.Documentation.Tests
         [Fact]
         public void AddDocumentation_DocumentName_Valid()
         {
-            _services.AddDocumentation(_docCfg);
+            _services.AddDocumentation(cfg =>
+            {
+                cfg.DocumentName = "Anything";
+                cfg.Description = "Some description";
+                cfg.Title = "Whatever";
+                cfg.Version = "v123";
+                cfg.GroupNames = new[] {"group1", "group2", "group3"};
+            });
 
             var bsp = _services.BuildServiceProvider();
             var scope = bsp.CreateScope();
             var registration = scope.ServiceProvider.GetService<OpenApiDocumentRegistration>();
 
             Assert.NotNull(registration);
-            Assert.Equal(_docCfg.DocumentName, registration.DocumentName);
-            Assert.Equal(_docCfg.DocumentName, registration.Generator.Settings.DocumentName);
+            Assert.Equal("Anything", registration.DocumentName);
+            Assert.Equal("Anything", registration.Generator.Settings.DocumentName);
         }
 
         [Fact]
         public void AddDocumentation_Title_Valid()
         {
-            _services.AddDocumentation(_docCfg);
+            _services.AddDocumentation(cfg =>
+            {
+                cfg.DocumentName = "Anything";
+                cfg.Description = "Some description";
+                cfg.Title = "Whatever";
+                cfg.Version = "v123";
+                cfg.GroupNames = new[] {"group1", "group2", "group3"};
+            });
 
             var bsp = _services.BuildServiceProvider();
             var scope = bsp.CreateScope();
             var registration = scope.ServiceProvider.GetService<OpenApiDocumentRegistration>();
 
             Assert.NotNull(registration);
-            Assert.Equal(_docCfg.Title, registration.Generator.Settings.Title);
+            Assert.Equal("Whatever", registration.Generator.Settings.Title);
         }
 
         [Fact]
         public void AddDocumentation_Description_Valid()
         {
-            _services.AddDocumentation(_docCfg);
+            _services.AddDocumentation(cfg =>
+            {
+                cfg.DocumentName = "Anything";
+                cfg.Description = "Some description";
+                cfg.Title = "Whatever";
+                cfg.Version = "v123";
+                cfg.GroupNames = new[] {"group1", "group2", "group3"};
+            });
 
             var bsp = _services.BuildServiceProvider();
             var scope = bsp.CreateScope();
             var registration = scope.ServiceProvider.GetService<OpenApiDocumentRegistration>();
 
             Assert.NotNull(registration);
-            Assert.Equal(_docCfg.Description, registration.Generator.Settings.Description);
+            Assert.Equal("Some description", registration.Generator.Settings.Description);
         }
 
         [Fact]
         public void AddDocumentation_Version_Valid()
         {
-            _services.AddDocumentation(_docCfg);
+            _services.AddDocumentation(cfg =>
+            {
+                cfg.DocumentName = "Anything";
+                cfg.Description = "Some description";
+                cfg.Title = "Whatever";
+                cfg.Version = "v123";
+                cfg.GroupNames = new[] {"group1", "group2", "group3"};
+            });
 
             var bsp = _services.BuildServiceProvider();
             var scope = bsp.CreateScope();
             var registration = scope.ServiceProvider.GetService<OpenApiDocumentRegistration>();
 
             Assert.NotNull(registration);
-            Assert.Equal(_docCfg.Version, registration.Generator.Settings.Version);
+            Assert.Equal("v123", registration.Generator.Settings.Version);
         }
 
         [Fact]
         public void AddDocumentation_GroupNames_Valid()
         {
-            _services.AddDocumentation(_docCfg);
+            _services.AddDocumentation(cfg =>
+            {
+                cfg.DocumentName = "Anything";
+                cfg.Description = "Some description";
+                cfg.Title = "Whatever";
+                cfg.Version = "v123";
+                cfg.GroupNames = new[] {"group1", "group2", "group3"};
+            });
 
             var bsp = _services.BuildServiceProvider();
             var scope = bsp.CreateScope();
             var registration = scope.ServiceProvider.GetService<OpenApiDocumentRegistration>();
 
             Assert.NotNull(registration);
-            Assert.Equal(_docCfg.GroupNames, registration.Generator.Settings.ApiGroupNames);
+            Assert.Equal(new[] {"group1", "group2", "group3"}, registration.Generator.Settings.ApiGroupNames);
         }
 
         [Fact]

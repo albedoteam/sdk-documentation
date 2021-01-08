@@ -7,11 +7,17 @@ namespace AlbedoTeam.Sdk.Documentation
 {
     public static class Setup
     {
-        public static IServiceCollection AddDocumentation(this IServiceCollection services, DocConfig docConfig)
+        public static IServiceCollection AddDocumentation(
+            this IServiceCollection services,
+            Action<DocConfig> configureDocumentation)
         {
-            if (docConfig is null) throw new ArgumentNullException(nameof(docConfig));
-            docConfig.DocumentName ??= "v1";
+            if (configureDocumentation == null)
+                throw new ArgumentNullException(nameof(configureDocumentation));
             
+            var docConfig = new DocConfig();
+            configureDocumentation.Invoke(docConfig);
+            docConfig.DocumentName ??= "v1";
+
             services.AddOpenApiDocument(d =>
             {
                 d.Title = docConfig.Title;

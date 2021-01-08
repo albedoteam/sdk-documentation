@@ -5,7 +5,7 @@
 
         <IsPackable>false</IsPackable>
 
-        <AssemblyName>albedoteam-sdk-documentation-tests</AssemblyName>
+        <AssemblyName>AlbedoTeam.Sdk.Documentation.Tests</AssemblyName>
 
         <RootNamespace>AlbedoTeam.Sdk.Documentation.Tests</RootNamespace>
     </PropertyGroup>

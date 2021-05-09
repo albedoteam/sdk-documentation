@@ -8,6 +8,8 @@ using NSwag;
 
 namespace AlbedoTeam.Sdk.Documentation
 {
+    using System.Linq;
+
     public static class Setup
     {
         public static IServiceCollection AddDocumentation(
@@ -31,6 +33,14 @@ namespace AlbedoTeam.Sdk.Documentation
                     d.ApiGroupNames = new[] {version};
                     d.Version = version;
 
+                    d.AddSecurity("Bearer", Enumerable.Empty<string>(), new OpenApiSecurityScheme
+                    {
+                        Type = OpenApiSecuritySchemeType.ApiKey,
+                        Name = "Authorization",
+                        Description = "Copy 'Bearer ' + valid JWT token into field",
+                        In = OpenApiSecurityApiKeyLocation.Header
+                    });
+                    
                     d.PostProcess = document =>
                     {
                         document.Info.Contact = new OpenApiContact
